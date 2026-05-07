@@ -1,0 +1,65 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+class Car {
+public:
+    string Brand;
+    string Model;
+    int Year;
+    double EngineVolume;
+    double FuelTank;
+    double AverageConsumption;
+    bool IsAutomatic;
+
+    double GetEstimatedRange() {
+        if (AverageConsumption <= 0) return 0;
+        return (FuelTank / AverageConsumption) * 100;
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "Ukrainian");
+
+    int count;
+    cout << "Введіть кількість автомобілів: ";
+    cin >> count;
+
+    vector<Car> cars(count);
+
+    for (int i = 0; i < count; i++) {
+        cout << "Марка: ";
+        cin >> cars[i].Brand;
+
+        cout << "Модель: ";
+        cin >> cars[i].Model;
+
+        cout << "Рік випуску: ";
+        cin >> cars[i].Year;
+
+        cout << "Об'єм бака: ";
+        cin >> cars[i].FuelTank;
+
+        cout << "Середня витрата: ";
+        cin >> cars[i].AverageConsumption;
+
+        char isAuto;
+        cout << "Автомат? (y/n): ";
+        cin >> isAuto;
+        cars[i].IsAutomatic = (isAuto == 'y' || isAuto == 'Y');
+    }
+
+    cout << fixed << setprecision(2);
+    for (int i = 0; i < count; i++) {
+        cout << "\n---------------------------" << endl;
+        cout << "Автомобіль: " << cars[i].Brand << " " << cars[i].Model << endl;
+        cout << "Рік: " << cars[i].Year << endl;
+        cout << "КПП: " << (cars[i].IsAutomatic ? "Автомат" : "Механіка") << endl;
+        cout << "Запас ходу: " << cars[i].GetEstimatedRange() << " км" << endl;
+    }
+
+    return 0;
+}
