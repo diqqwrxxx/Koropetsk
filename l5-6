@@ -1,0 +1,77 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <iomanip>
+
+using namespace std;
+
+class Car {
+public:
+    string brand;
+    string model;
+    string color;
+    int year;
+    double engineVolume;
+    double fuelTank;
+    double avgConsumption;
+    bool isAutomatic;
+
+    double getEstimatedRange() {
+        if (avgConsumption <= 0) return 0;
+        return (fuelTank / avgConsumption) * 100.0;
+    }
+
+    double getRangeProperty() {
+        return getEstimatedRange();
+    }
+};
+
+int main() {
+    setlocale(LC_ALL, "Ukrainian");
+
+    int cntCars;
+    cout << "Введіть кількість автомобілів: ";
+    cin >> cntCars;
+
+    vector<Car> arrCars(cntCars);
+
+    for (int i = 0; i < cntCars; i++) {
+        cout << "Марка: ";
+        cin >> arrCars[i].brand;
+        
+        cout << "Модель: ";
+        cin >> arrCars[i].model;
+        
+        cout << "Колір: ";
+        cin >> arrCars[i].color;
+        
+        cout << "Рік випуску: ";
+        cin >> arrCars[i].year;
+        
+        cout << "Об'єм бака: ";
+        cin >> arrCars[i].fuelTank;
+        
+        cout << "Середня витрата: ";
+        cin >> arrCars[i].avgConsumption;
+        
+        char shiftKey;
+        cout << "Автомат? (y/n): ";
+        cin >> shiftKey;
+        arrCars[i].isAutomatic = (shiftKey == 'y' || shiftKey == 'Y');
+    }
+
+    cout << endl << "Дані про об'єкти:" << endl;
+
+    for (int i = 0; i < cntCars; i++) {
+        cout << "------------------------------------------" << endl;
+        cout << "Авто: " << arrCars[i].brand << " " << arrCars[i].model << endl;
+        cout << "Рік: " << arrCars[i].year << endl;
+        cout << "Колір: " << arrCars[i].color << endl;
+        cout << "КПП: " << (arrCars[i].isAutomatic ? "Автомат" : "Механіка") << endl;
+        
+        cout << fixed << setprecision(2);
+        cout << "Запас ходу: " << arrCars[i].getRangeProperty() << " км" << endl;
+    }
+
+    return 0;
+}
