@@ -1,0 +1,66 @@
+част1
+#include <iostream>
+#include <ctype.h>
+
+using namespace std;
+
+int main() {
+    int ch;
+    bool inNumber = false;
+
+    while ((ch = cin.get()) != EOF) {
+        if (isdigit(ch)) {
+            inNumber = true;
+        } else {
+            if (inNumber) {
+                inNumber = false;
+            }
+            cout.put(ch);
+        }
+    }
+
+    return 0;
+}
+част 2
+#include <iostream>
+#include <cmath>
+#include <stdexcept>
+
+using namespace std;
+
+double calculateY(double x) {
+    if (x == 2) {
+        throw runtime_error("Помилка: Ділення на нуль (x не може дорівнювати 2)");
+    }
+    return (abs(x - 2) + 1) / (x - 2);
+}
+
+int main() {
+    setlocale(LC_ALL, "Ukrainian");
+
+    double start, end, step;
+
+    cout << "Введіть початок проміжку: ";
+    cin >> start;
+    cout << "Введіть кінець проміжку: ";
+    cin >> end;
+    cout << "Введіть крок: ";
+    cin >> step;
+
+    cout << "\nРезультати обчислень:" << endl;
+    cout << "-----------------------" << endl;
+    cout << "  x  |      y" << endl;
+    cout << "-----------------------" << endl;
+
+    for (double x = start; x <= end; x += step) {
+        try {
+            double y = calculateY(x);
+            cout << x << " | " << y << endl;
+        }
+        catch (const runtime_error& e) {
+            cerr << x << " | " << e.what() << endl;
+        }
+    }
+
+    return 0;
+}
