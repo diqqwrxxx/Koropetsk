@@ -1,0 +1,65 @@
+част1
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main() {
+    string s;
+    cout << "Введіть рядок: ";
+    getline(cin, s);
+
+    int round = 0, square = 0;
+
+    for (char c : s) {
+        if (c == '(') round++;
+        if (c == ')') round--;
+        if (c == '[') square++;
+        if (c == ']') square--;
+        
+        if (round < 0 || square < 0) break;
+    }
+
+    if (round == 0 && square == 0) {
+        cout << "Кількість дужок співпадає" << endl;
+    } else {
+        cout << "Кількість дужок не співпадає або порушено порядок" << endl;
+    }
+
+    return 0;
+}
+част2
+#include <iostream>
+#include <vector>
+#include <list>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    vector<int> v = {10, -5, 3, -2, 8, -1, 0, 7};
+    list<int> l;
+
+    cout << "Початковий вектор: ";
+    for (int x : v) cout << x << " ";
+    cout << endl;
+
+    auto it = v.begin();
+    while (it != v.end()) {
+        if (*it > 0) {
+            it = v.erase(it);
+        } else {
+            ++it;
+        }
+    }
+
+    for (int x : v) {
+        l.push_front(x);
+    }
+
+    cout << "Отриманий список (зворотний порядок): ";
+    for (int x : l) cout << x << " ";
+    cout << endl;
+
+    return 0;
+}
